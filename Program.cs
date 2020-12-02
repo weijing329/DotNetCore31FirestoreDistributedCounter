@@ -37,6 +37,9 @@ namespace DotNetCore31FirestoreDistributedCounter
     /// <param name="docRef">The document reference <see cref="DocumentReference"/></param>
     private static async Task CreateCounterAsync(DocumentReference docRef, int numOfShards)
     {
+      // reset shards
+      await docRef.DeleteAsync();
+
       CollectionReference colRef = docRef.Collection("shards");
       var tasks = new List<Task>();
       // Initialize each shard with Count=0
